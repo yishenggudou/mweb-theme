@@ -1,13 +1,17 @@
+<script type="text/javascript">
+	$(function(){
+		var currentURL = '{{post.url}}';
+		currentURL = currentURL.substr(0,currentURL.length-5);
+		$('#menu_item_'+currentURL).addClass('is_active');
+	});
+</script>
+<div class="row">
 
-<script type="text/javascript">isAddSildbar=false;</script>
-<div>
-	<article class="hentry" role="article">
-			 <header>
-			  	<h1 class="entry-title">{{post.title}}</h1>
-				<p class="meta"><time datetime="{{post.dateGTM}}" pubdate data-updated="true">{{post.date}}</time></p>
-			 </header>
-		  	<div class="entry-content">
-			  	{{ post.content }}
-			</div>
-	</article>
-</div>
+    <div id="single-page-wrap">
+        <h1>{{post.title}}</h1>
+
+        <div class="markdown-body post-page">
+        {{ post.content }}
+        </div>
+    </div>
+</div>              

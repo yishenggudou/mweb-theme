@@ -1,28 +1,32 @@
- <div>
-<article role="article">
-  <header>
-    <h1 class="entry-title">Blog Archive</h1>
-  </header>
-	<div id="blog-archives">
-	{% for p in posts %}
-		{% if p.year.length %} 
-		  	<h2>{{ p.year }}</h2>
-		{% /if %}
-		
-			<article>
-				<h1><a href="{{ p.url }}">{{ p.title }}</a></h1>
-				<time datetime="{{ p.dateGTM }}" pubdate><span class='month'>{{ p.dateMonth }}</span> <span class='day'>{{ p.dateDay }}</span> <span class='year'>{{ p.dateYear }}</span></time>
-				<footer>
-				  {% if p.cats.@count %}<span class="categories">posted in {% /if %}
-				  {% for cat in p.cats %}
-					    <a class='category' href='{{ cat.url }}'>{{ cat.name }}</a>&nbsp;
-				  {% /for %} 
-				  {% if p.cats.@count %}</span>{% /if %}
-				</footer>
-			</article>
- 	{% /for %} 
+<script type="text/javascript">
+  $(function(){
+    $('#menu_item_archives').addClass('is_active');
+  });
+</script>
+<div class="row">
+  <div class="large-8 medium-8 columns">
+    <div id="archives-page-wrap">
+        <h1>Archives</h1>
+        <div class="markdown-body archives-wrap">
+          {% for p in posts %}
+            {% if p.year.length %} 
+                <h1>{{ p.year }}</h1>
+            {% /if %}
+            <div class="article">
+              <a class="clearlink" href="{{ p.url }}">
+                <h1>{{ p.title }}</h1>
+              </a>
+              <div class="read-more clearfix">
+                <span class="date">{{p.date}}</span>
+                {% if p.cats.@count %}<span>posted in&nbsp;</span> {% /if %}
+                {% for cat in p.cats %}
+                    <span class="posted-in"><a href='{{ cat.url }}'>{{ cat.name }}</a></span>
+                {% /for %} 
+              </div>
+            </div><!-- article -->
 
-		</div>
-</article>
+          {% /for %} 
+        </div>
+      </div>
+  </div>
 
-</div>

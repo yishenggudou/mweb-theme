@@ -1,37 +1,29 @@
-<!DOCTYPE html>
-<!--[if IEMobile 7 ]>
-<html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]>
-<html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!-->
-<html class="no-js"><!--<![endif]-->
+<!doctype html>
+<html class="no-js" lang="en">
 <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>
         {% if pageTitle.length %}
         {{ pageTitle }}
         {% else %}
         {{ siteName }}
         {% /if %}
-
     </title>
-    <meta name="author" content="">
-    <meta name="description" content="{{ siteDes }}">
-
-    <meta name="HandheldFriendly" content="True">
-    <meta name="MobileOptimized" content="320">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <link href="asset/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" type="text/css" href="asset/app.css">
-
+    {% if post.ext_seo_keywords.length %}
+    <meta name="keywords" content="{{post.ext_seo_keywords}}"/>
+    {% /if %}
+    {% if post.ext_seo_des.length %}
+    <meta name="description" content="{{post.ext_seo_des}}"/>
+    {% /if %}
     <link href="atom.xml" rel="alternate" title="{{ siteName }}" type="application/atom+xml">
-    <script src="asset/js/modernizr-2.0.js"></script>
-    <script src="asset/js/jquery.min.js"></script>
+    <link rel="stylesheet" href="asset/css/foundation.min.css"/>
+    <link rel="stylesheet" href="asset/css/docs.css"/>
+    <script src="asset/js/vendor/modernizr.js"></script>
+    <script src="asset/js/vendor/jquery.js"></script>
     <script src="asset/highlightjs/highlight.pack.js"></script>
-    <link href="asset/highlightjs/styles/solarized_light.css" media="screen, projection" rel="stylesheet"
-          type="text/css">
-
+    <link href="asset/highlightjs/styles/github.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="asset/css/chart.css">
     <script type="text/javascript" src="asset/jquery_plantuml/jquery.js"></script>
     <script type="text/javascript" src="asset/jquery_plantuml/rawdeflate.js"></script>
     <script type="text/javascript" src="asset/jquery_plantuml/encode64.js"></script>
@@ -39,62 +31,76 @@
     <script src="asset/mermaid.min.js"></script>
     <script src="asset/app.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-
-    <style type="text/css">
-        .cat-children-p {
-            padding: 6px 0px;
-        }
-
-        .hljs {
-            background: none;
-        }
-    </style>
     <script type="text/javascript">
-        var isAddSildbar = true;
+        function before_search() {
+            var searchVal = 'site:{{ siteDomain }} ' + document.getElementById('search_input').value;
+            document.getElementById('search_q').value = searchVal;
+            return true;
+        }
     </script>
-    <script src="asset/js/octopress.js" type="text/javascript"></script>
 </head>
-<script type="text/javascript">
-    //链接新开窗口
-    function addBlankTargetForLinks() {
-        $('a[href^="http"]').each(function () {
-            $(this).attr('target', '_blank');
-        });
-    }
+<body class="antialiased hide-extras">
 
-    $(document).ready(function (event) {
-        addBlankTargetForLinks();
-    });
-</script>
-<body>
-<header role="banner">
-    <hgroup>
-        <h1><a href="index.html">{{ siteName }}</a></h1>
+<div class="marketing off-canvas-wrap" data-offcanvas>
+    <div class="inner-wrap">
 
-        <h2>{{ siteDes }}</h2>
 
-    </hgroup>
+        <nav class="top-bar docs-bar hide-for-small" data-topbar>
 
-</header>
-<nav role="navigation">
-    <ul class="subscription" data-subscription="rss">
-        <li><a href="atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
 
-    </ul>
+            <section class="top-bar-section">
+                <div class="row">
+                    <div style="position: relative;width:100%;">
+                        <div style="position: absolute; width:100%;">
+                            <ul id="main-menu" class="left">
+                                {% for m in siteMenu %}
+                                <li id="{{ m.className }}"><a target="{{ m.target }}" href="{{ m.url }}">{{ m.name
+                                    }}</a></li>
+                                {% /for %}
+                            </ul>
 
-    <form action="http://google.com/search" method="get">
-        <fieldset role="search">
-            <input type="hidden" name="q" value="site:{{ siteDomain }}"/>
-            <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-        </fieldset>
-    </form>
+                            <ul class="right" id="search-wrap">
+                                <li>
+                                    <form target="_blank" onsubmit="return before_search();"
+                                          action="http://google.com/search" method="get">
+                                        <input type="hidden" id="search_q" name="q" value=""/>
+                                        <input tabindex="1" type="search" id="search_input" placeholder="Search"/>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-    <ul class="main-navigation">
-        {% for m in siteMenu %}
-        <li id="{{ m.className }}"><a target="{{ m.target }}" href="{{ m.url }}">{{ m.name }}</a></li>
-        {% /for %}
-    </ul>
+        </nav>
 
-</nav>
-<div id="main">
-    <div id="content">
+        <nav class="tab-bar show-for-small">
+            <a href="javascript:void(0)" class="left-off-canvas-toggle menu-icon">
+                <span> &nbsp; {{ siteName }}</span>
+            </a>
+        </nav>
+
+        <aside class="left-off-canvas-menu">
+            <ul class="off-canvas-list">
+
+                <li><a href="index.html">HOME</a></li>
+                <li><a href="archives.html">Archives</a></li>
+                <li><a href="about.html">ABOUT</a></li>
+
+                <li><label>Categories</label></li>
+
+                {% for p in categoriesTree %}
+                <li><a href="{{ p.url }}">{{ p.name }}</a></li>
+                {% /for %}
+
+            </ul>
+        </aside>
+
+        <a class="exit-off-canvas" href="#"></a>
+
+
+        <section id="main-content" role="main" class="scroll-container">
+        
+       
+

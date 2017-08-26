@@ -10,8 +10,7 @@
     <name><![CDATA[]]></name>
     
   </author>
-  <generator uri="http://www.coderforart.com/">CoderForArt</generator>
-
+  <generator uri="http://www.mweb.im/">MWeb</generator>
   {% for p in posts %}
   <entry>
     <title type="html"><![CDATA[{{ p.title }}]]></title>
